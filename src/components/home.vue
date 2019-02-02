@@ -5,12 +5,15 @@
         <Head/>
       </div>
     </section>
-    <section>
+    <section class="is-centered">
       <Carousel/>
     </section>
     <section>
       <BodyHome/>
     </section>
+    <section>
+      <Foot/>
+    </section>  
   </div>
 </template>
 
@@ -18,12 +21,14 @@
 import Head from './head/head'
 import Carousel from './carousel/carousel'
 import BodyHome from './bodyHome/bodyHome'
+import Foot from './foot/foot'
 export default {
   name: 'Home',
   components: {
     Head,
     Carousel,
-    BodyHome
+    BodyHome,
+    Foot
   }
 }
 </script>
