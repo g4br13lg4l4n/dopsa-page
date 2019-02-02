@@ -1,72 +1,104 @@
 <template>
-  <div class="head-container nav-header">
-    <div class="nav-bounds">
-      <a class="nav-logo" href="#">DOPSA</a>
-      <form action="" class="form-search-head">
-        <input type="text" class="search-head" placeholder="Buscar productos" autocomplete="off" autocorrect="off" autofocus>
-      </form>
-      <div class="login-up">
-        <a href="#">Crear cuenta</a>
-        <a href="#">Ingresar</a>
+  <section>
+    <div class="columns is-gapless is-multiline is-mobile is-centered is-vcentered">
+      <div class="column">
+       <h1 class="title is-4">DOPSA</h1> 
+      </div>  
+      <div class="column is-two-thirds is-centered">
+        <b-field>
+          <b-autocomplete
+              v-model="name"
+              ref="autocomplete"
+              :data="filteredDataArray"
+              placeholder="Buscar producto"
+              @select="option => selected = option">
+              <template slot="header">
+                  <a @click="showAddFruit"> </a> 
+              </template>
+              <template slot="empty">No results for {{name}}</template>
+          </b-autocomplete>
+          <p class="control">
+            <button class="button is-info">Search</button>
+          </p>
+        </b-field>
       </div>
+      <div class="column is-one-quarter">
+        <nav class="breadcrumb is-centered" aria-label="breadcrumbs">
+          <ul>
+            <li><a href="#">Bulma</a></li>
+            <li><a href="#">Documentation</a></li>
+          </ul>
+        </nav>
+      </div> 
     </div>
-  </div>
+    <Menu/>
+  </section>
 </template>
 
 <script>
+import Menu from '../menu/menu'
+
+import 'buefy/dist/buefy.css'
 export default {
   name: 'Head',
+  components: {
+    Menu
+  },
+  data() {
+    return {
+      data: [
+        'Orange',
+        'Apple',
+        'Banana',
+        'Pear',
+        'Lemon',
+        'Strawberry',
+        'Kiwi'
+      ],
+      name: '',
+      selected: null
+    }
+  },
+  computed: {
+    filteredDataArray() {
+      return this.data.filter((option) => {
+        return option
+          .toString()
+          .toLowerCase()
+          .indexOf(this.name.toLowerCase()) >= 0
+      })
+    }
+  },
+  methods: {
+    showAddFruit() {
+      this.$dialog.prompt({
+        message: `Fruit`,
+        inputAttrs: {
+          placeholder: 'e.g. Watermelon',
+          maxlength: 20,
+          value: this.name
+        },
+        confirmText: 'Add',
+        onConfirm: (value) => {
+          this.data.push(value)
+          this.$refs.autocomplete.setSelected(value)
+        }
+      })
+    }
+  }
 }
 </script>
 
-<style>
-  .head-container {
-    background-color: #fff159;
-    border: 0;
-    position: relative;
+<style scoped>
+  .navbar-item:hover {
+    background-color: transparent !important;
   }
-  .nav-header {
-    height: auto;
-    font-size: 13px;
-    font-weight: 400;
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box;
-    height: 100px;
-  }
-  .nav-bounds {
-    max-width: 1200px;
-    padding: 12px 0;
-    margin: 0 auto;
-  }
-  .nav-logo {
-    color: #333;
-    text-decoration: none;
-    font-size: 2em;
-    font-family: 'Helvetica';
-  }
-  .form-search-head{
-    width: 50%;
-    display: inline-block;
-    margin-left: 20px;
-  }
-  .search-head{
-    -webkit-box-shadow: 0 1px 2px 0 rgba(0,0,0,.2);
-    box-shadow: 0 1px 2px 0 rgba(0,0,0,.2);
-    height: 28px;
-    border: 0;
-    padding: 7px 60px 7px 15px;
-    border-radius: 2px;
-    background-color: #fff;
-    border: 0 rgba(0,0,0,.2);
-    color: #333;
-    font-size: 16px;
+  .autocomplete.control{
     width: 100%;
   }
-  .login-up {
-    width: 20%;
-    display: inline-block;
+  .columns.is-gapless:not(:last-child){
+    margin-bottom: 0;
   }
-
 </style>
 
 

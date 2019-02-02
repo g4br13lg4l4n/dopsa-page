@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div class="hero">
     <Home/>
   </div>
 </template>
@@ -16,7 +16,7 @@ export default {
 </script>
 
 <style>
-  html, body{
+  html, body {
     margin: 0;
     padding: 0;
   }
