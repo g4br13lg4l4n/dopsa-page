@@ -40,6 +40,7 @@ export default {
   .section.head {
     padding: 1rem 1.5rem .8rem 1.5rem;
     background-color: #fff159;
+    height: 90px;
   }
 </style>
 
