@@ -12,8 +12,10 @@ import Category from '../view/pages/category'
 
 Vue.use(Router)
 
+
 export default new Router({
   mode: 'history',
+  base: 'http://grupodopsa.com/',
   routes: [
     {
       path: '/',

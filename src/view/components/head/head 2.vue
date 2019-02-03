@@ -2,7 +2,7 @@
   <section>
     <div class="columns is-gapless is-multiline is-mobile is-centered is-vcentered">
       <div class="column">
-        <a href="/"><h1 class="title is-4">DOPSA</h1></a>
+        <router-link :to="{ name: 'Home' }"><h1 class="title is-4">DOPSA</h1></router-link>
       </div>  
       <div class="column is-two-thirds is-centered">
         <b-field>
