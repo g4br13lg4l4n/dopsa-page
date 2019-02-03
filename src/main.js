@@ -8,10 +8,6 @@ Vue.config.productionTip = false
 Vue.use(Buefy)
 Vue.use(VueCarousel)
 
-new Vue({
-  render: h => h(App),
-}).$mount('#app')
-
 /* eslint-disable no-new */
 new Vue({
   render: h => h(App),
