@@ -9,13 +9,13 @@ import Search from '../view/pages/search'
 import Product from '../view/pages/product'
 import Checkout from '../view/pages/checkout'
 import Category from '../view/pages/category'
+import Register from '../view/pages/register'
 
 Vue.use(Router)
 
 
 export default new Router({
   mode: 'history',
-  base: 'http://grupodopsa.com/',
   routes: [
     {
       path: '/',
@@ -56,6 +56,11 @@ export default new Router({
       path: 'login',
       name: 'Login',
       component: Login
+    }, 
+    {
+      path: 'register',
+      name: 'Register',
+      component: Register
     },
   ]
 })
