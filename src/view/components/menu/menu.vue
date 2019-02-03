@@ -2,14 +2,16 @@
   <section>
     <ul class="nav site-nav">
       <li class=flyout>
-        <a href=#>Categorías</a>
+        <router-link :to="{ name: 'Category', params: { id: 1 }}">Categorías</router-link>
         <ul class="flyout-content nav stacked">
           <li class="flyout-alt">
             <a href=#>Mujer</a>
             <ul class="flyout-content nav stacked panel">
                 <div class="flyout-alt columns is-multiline  is-vcentered">
                   <div class="title-subcategory column is-4">
-                    <h4 class="title is-5 is-spaced">Pantalón</h4>
+                    <h4 class="title is-5 is-spaced">
+                      <router-link :to="{ name: 'Category', params: { id: 2 }}">Pantalón</router-link>
+                    </h4>
                     <ul class="title-subcategory-2">
                       <li class="subtitle is-5">Marcas</li>
                       <ul>
