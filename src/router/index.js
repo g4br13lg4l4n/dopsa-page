@@ -33,32 +33,32 @@ export default new Router({
       component: Search
     },
     {
-      path: 'product',
+      path: '/product',
       name: 'Product',
       component: Product
     },
     {
-      path: 'pay',
+      path: '/pay',
       name: 'Pay',
       component: Pay
     },
     {
-      path: 'car',
+      path: '/car',
       name: 'Car',
       component: Car
     },
     {
-      path: 'checkout',
+      path: '/checkout',
       name: 'Checkout',
       component: Checkout
     },
     {
-      path: 'login',
+      path: '/login',
       name: 'Login',
       component: Login
     }, 
     {
-      path: 'register',
+      path: '/register',
       name: 'Register',
       component: Register
     },
