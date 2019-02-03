@@ -6,17 +6,14 @@
       </div>
     </section>
 
-    <div>
+    <section>
+      <Carousel/>
+    </section>
+    <section>
 
-      <section>
-        <Carousel/>
-      </section>
-      <section>
-        <BodyHome/>
-      </section>
-
-    </div>
-
+      <BodyHome/>
+    </section>
+    
     <section>
       <Foot/>
     </section>  

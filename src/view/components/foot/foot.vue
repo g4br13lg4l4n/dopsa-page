@@ -1,14 +1,13 @@
 <template>
-  <div class="section foot">
-    <div class="container">
+  <footer class="footer">
+    <div class="content has-text-centered">
       <p>Copyright © 2019 Grupodopsa</p>
     </div>
-  </div>
+  </footer>
 </template>
 
 <style scoped>
-  .section.foot {
-    background-color: #eaeaea;
+  .footer {
     margin-top: 60px;
   }
 </style>
