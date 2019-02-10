@@ -27,7 +27,7 @@
                 <b-input placeholder="Email" type="email"></b-input>
               </b-field>
               <b-field label="Contraseña">
-                <b-input placeholder="Contraseña"></b-input>
+                <b-input type="password" password-reveal placeholder="Contraseña"></b-input>
               </b-field>
               <a class="button is-info">Guardar</a>
             </form> 

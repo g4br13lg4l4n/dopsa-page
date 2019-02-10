@@ -23,9 +23,9 @@
                 <b-input placeholder="Email" type="email"></b-input>
               </b-field>
               <b-field label="Contraseña">
-                <b-input placeholder="Contraseña"></b-input>
+                <b-input  type="password" placeholder="Contraseña" password-reveal></b-input>
               </b-field>
-              <a class="button is-info">Ingresar</a>
+               <router-link :to="{ name: 'Checkout' }"><p class="button is-info">Ingresar</p></router-link>
             </form> 
           </div> 
           

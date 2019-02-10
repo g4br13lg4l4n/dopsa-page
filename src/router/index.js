@@ -10,6 +10,7 @@ import Product from '../view/pages/product'
 import Checkout from '../view/pages/checkout'
 import Category from '../view/pages/category'
 import Register from '../view/pages/register'
+import CheckLogin from '../view/pages/checkLogin'
 
 Vue.use(Router)
 
@@ -28,14 +29,14 @@ export default new Router({
       component: Category
     },
     {
+      path: '/product/:id',
+      name: 'Product',
+      component: Product
+    },
+    {
       path: '/seacrh',
       name: 'Search',
       component: Search
-    },
-    {
-      path: '/product',
-      name: 'Product',
-      component: Product
     },
     {
       path: '/pay',
@@ -51,6 +52,11 @@ export default new Router({
       path: '/checkout',
       name: 'Checkout',
       component: Checkout
+    },
+    {
+      path:'/checkLogin',
+      name:'CheckLogin',
+      component: CheckLogin
     },
     {
       path: '/login',
