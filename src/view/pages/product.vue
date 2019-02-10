@@ -16,10 +16,10 @@
         </div>
         <div class="column">
           <article class="tile is-child box">
-            <p class="title is-size-4">Blusa primavera</p>
-            <p class="subtitle is-size-6">Blusa de primera para todo tiempo</p>
-            <p class="has-text-weight-light is-primary line-text">$ 12,999</p>
-            <p class="has-text-weight-semibold">$ 13,999</p>
+            <p class="title is-size-4">{{article[0].name}}</p>
+            <p class="subtitle is-size-6">{{article[0].description}}</p>
+            <p class="has-text-weight-light is-primary line-text">$ {{article[0].salePrice}}</p>
+            <p class="has-text-weight-semibold">$ {{article[0].offerPrice}}</p>
 
             <div class="columns mt-1 cont-select">
               <b-field label="Cantidad">
@@ -55,6 +55,8 @@
 </template>
 
 <script>
+import Api from '../../API/api.js'
+
 import Head from '../components/head/head'
 import Foot from '../components/foot/foot'
 export default {
@@ -63,8 +65,17 @@ export default {
     Head,
     Foot
   },
+  mounted(){
+    if(this.$route.params){
+      Api.getArticle(this.$route.params.id)
+      .then(resp => {
+        this.article = resp.data
+      })
+    }
+  },
   data () {
     return {
+      article: '',
       'images': {
         'thumbs': [
           {

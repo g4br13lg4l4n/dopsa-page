@@ -8,4 +8,4 @@ const isLocalhost = Boolean(
   )
 )
 
-module.exports = isLocalhost
+export default isLocalhost
