@@ -16,21 +16,15 @@
         </div>
         <div class="column">
           <article class="tile is-child box">
-            <p class="title is-size-4">{{article[0].name}}</p>
-            <p class="subtitle is-size-6">{{article[0].description}}</p>
-            <p class="has-text-weight-light is-primary line-text">$ {{article[0].salePrice}}</p>
-            <p class="has-text-weight-semibold">$ {{article[0].offerPrice}}</p>
-
+            <p class="title is-size-4">{{article.nombre}}</p>
+            <p class="subtitle is-size-6">{{article.descripcion}}</p>
+            <p class="has-text-weight-light is-primary line-text">$ {{article.precio_venta}}</p>
+            <p class="has-text-weight-semibold">$ {{article.precio_oferta}}</p>
             <div class="columns mt-1 cont-select">
               <b-field label="Cantidad">
-              <b-select placeholder="Cantidad 1">
-                  <option value="1">Cantidad 1</option>
-                  <option value="2">Cantidad 2</option>
-                  <option value="3">Cantidad 3</option>
-                  <option value="4">Cantidad 4</option>
-                  <option value="5">Cantidad 5</option>
-                  <option value="6">Cantidad 6</option>
-                  </b-select>
+                <b-select placeholder="Cantidad 1" >
+                  <option v-for="n in article.disponibles" :key="n" >Cantidad {{ n }}</option>
+                </b-select>
               </b-field>  
             </div>
             
@@ -67,14 +61,16 @@ export default {
   },
   mounted(){
     if(this.$route.params){
-      Api.getArticle(this.$route.params.id)
+      Api.getProduct(this.$route.params.id)
       .then(resp => {
         this.article = resp.data
-      })
+        this.disponible = parseInt(resp.data.disponible) 
+      })  
     }
   },
   data () {
     return {
+      disponible: 0,
       article: '',
       'images': {
         'thumbs': [

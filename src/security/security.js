@@ -1,26 +1,25 @@
 import axios from 'axios'
 import configService from '../API/config'
 
+const access = {
+  'Content-Type':'multipart/form-data',
+  'grant_type': 'client_credentials',
+  'client_id': '4',
+  'client_secret': 'D226qJbWZYrzAXxVZVQEzhqVttrXBTbCXVtb3FMg'
+}
+
 const connect = axios.create({
-  baseURL: configService.apiUrl,
-  headers: {
-    grant_type: 'client_credentials',
-    client_id: '4',
-    client_secret: 'D226qJbWZYrzAXxVZVQEzhqVttrXBTbCXVtb3FMg'
-  },
+  baseURL: configService.apiUrl
 })
 
 const security = {
   getToken: () => {
-    return new Promise((resolve, reject) => {
-      connect.post('oauth/token', '')
+      connect.post('oauth/token', access)
         .then(resp => {
-          resolve(resp.data) 
+          localStorage.header = JSON.stringify(resp.data)
         })
         .catch(err => {
-          reject(err)
         })
-    })
   },
 
   getStorageToken: ()=> {

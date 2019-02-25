@@ -29,35 +29,6 @@
           </router-link>  
         </div>
       </div>
-
-
-
-
-      <div class="column is-3">   
-        <div class="card">
-          <div class="card-image">
-            <figure class="image is-4by3">
-              <img src="https://bulma.io/images/placeholders/1280x960.png" alt="Placeholder image">
-            </figure>
-          </div>
-          <div class="card-content">
-            <div class="content">
-              <div class="columns is-multiline">
-                <div class="column is-6">
-                  <p class="has-text-centered has-text-weight-light line-text">$ 12,999</p>
-                </div>
-                <div class="column is-6">
-                  <p class="has-text-centered has-text-weight-semibold">$ 13,999</p>
-                </div>
-                <div class="column is-12">
-                 <p class="has-text-weight-normal">Lorem ipsom de texto de ejemplo para el producto</p>
-                </div>
-              </div>  
-            </div>
-          </div>
-        </div>
-      </div>
-
     </div>
   </div>
   
