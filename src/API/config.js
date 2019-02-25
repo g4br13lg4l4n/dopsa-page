@@ -1,6 +1,6 @@
 import isLocal from '../plugin/isLocal'
 
-const url = isLocal ? 'http://localhost:8000/api/' : 'https://dev.system.grupodopsa.com/api/'
+const url = isLocal ? 'http://127.0.0.1:8000/' : 'https://dev.system.grupodopsa.com/'
 const configService = {
   apiUrl: url
 }

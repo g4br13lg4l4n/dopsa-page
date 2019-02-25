@@ -3,9 +3,9 @@
     <h3 class="subtitle is-3">Ofertas</h3>
     <div class="columns is-variable is-3 is-multiline">
 
-      <div v-for="article in articles" :key="article.id" class="column is-3"> 
+      <div v-for="product in products" :key="product.identificador" class="column is-3"> 
         <div class="card" >
-          <router-link :to="{ name: 'Product', params: { id: article.id }}">
+          <router-link :to="{ name: 'Product', params: { id: product.identificador }}">
             <div class="card-image">
               <figure class="image is-4by3">
                 <img src="https://bulma.io/images/placeholders/1280x960.png" alt="Placeholder image">
@@ -15,13 +15,13 @@
               <div class="content">
                 <div class="columns is-multiline">
                   <div class="column is-6">
-                    <p class="has-text-centered has-text-weight-light line-text">$ {{ article.salePrice }}</p>
+                    <p class="has-text-centered has-text-weight-light line-text">$ {{ product.precio_venta }}</p>
                   </div>
                   <div class="column is-6">
-                    <p class="has-text-centered has-text-weight-semibold">$ {{ article.offerPrice }}</p> 
+                    <p class="has-text-centered has-text-weight-semibold">$ {{ product.precio_oferta }}</p> 
                   </div>
                   <div class="column is-12">
-                  <p class="has-text-weight-normal">{{ article.name }}</p>
+                  <p class="has-text-weight-normal">{{ product.nombre_corto }}</p>
                   </div>
                 </div>  
               </div>
@@ -30,105 +30,8 @@
         </div>
       </div>
 
-      <div class="column is-3">
-        <div class="card">
-          <div class="card-image">
-            <figure class="image is-4by3">
-              <img src="https://bulma.io/images/placeholders/1280x960.png" alt="Placeholder image">
-            </figure>
-          </div>
-          <div class="card-content">
-            <div class="content">
-              <div class="columns is-multiline">
-                <div class="column is-6">
-                  <p class="has-text-centered has-text-weight-light line-text">$ 12,999</p>
-                </div>
-                <div class="column is-6">
-                  <p class="has-text-centered has-text-weight-semibold">$ 13,999</p>
-                </div>
-                <div class="column is-12">
-                 <p class="has-text-weight-normal">Lorem ipsom de texto de ejemplo para el producto</p>
-                </div>
-              </div>  
-            </div>
-          </div>
-        </div>
-      </div>
 
-      <div class="column is-3">
-        <div class="card">
-          <div class="card-image">
-            <figure class="image is-4by3">
-              <img src="https://bulma.io/images/placeholders/1280x960.png" alt="Placeholder image">
-            </figure>
-          </div>
-          <div class="card-content">
-            <div class="content">
-              <div class="columns is-multiline">
-                <div class="column is-6">
-                  <p class="has-text-centered has-text-weight-light line-text">$ 12,999</p>
-                </div>
-                <div class="column is-6">
-                  <p class="has-text-centered has-text-weight-semibold">$ 13,999</p>
-                </div>
-                <div class="column is-12">
-                 <p class="has-text-weight-normal">Lorem ipsom de texto de ejemplo para el producto</p>
-                </div>
-              </div>  
-            </div>
-          </div>
-        </div>
-      </div>
 
-      <div class="column is-3">   
-        <div class="card">
-          <div class="card-image">
-            <figure class="image is-4by3">
-              <img src="https://bulma.io/images/placeholders/1280x960.png" alt="Placeholder image">
-            </figure>
-          </div>
-          <div class="card-content">
-            <div class="content">
-              <div class="columns is-multiline">
-                <div class="column is-6">
-                  <p class="has-text-centered has-text-weight-light line-text">$ 12,999</p>
-                </div>
-                <div class="column is-6">
-                  <p class="has-text-centered has-text-weight-semibold">$ 13,999</p>
-                </div>
-                <div class="column is-12">
-                 <p class="has-text-weight-normal">Lorem ipsom de texto de ejemplo para el producto</p>
-                </div>
-              </div>  
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="column is-3">   
-        <div class="card">
-          <div class="card-image">
-            <figure class="image is-4by3">
-              <img src="https://bulma.io/images/placeholders/1280x960.png" alt="Placeholder image">
-            </figure>
-          </div>
-          <div class="card-content">
-            <div class="content">
-              <div class="columns is-multiline">
-                <div class="column is-6">
-                  <p class="has-text-centered has-text-weight-light line-text">$ 12,999</p>
-                </div>
-                <div class="column is-6">
-                  <p class="has-text-centered has-text-weight-semibold">$ 13,999</p>
-                </div>
-                <div class="column is-12">
-                 <p class="has-text-weight-normal">Lorem ipsom de texto de ejemplo para el producto</p>
-                </div>
-              </div>  
-            </div>
-          </div>
-        </div>
-      </div>
 
       <div class="column is-3">   
         <div class="card">
@@ -169,13 +72,13 @@ export default {
   name: 'bodyHome',
   data () {
     return {
-      articles: ''
+      products: ''
     }
   },
   mounted() {
-    Api.getArticles()
+    Api.getProducts()
     .then(resp => {
-      this.articles = resp.data
+      this.products = resp.data
     })
   }
 }
