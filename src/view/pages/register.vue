@@ -18,18 +18,18 @@
             <h2 class="title is-4">Registra tus datos</h2>
             <form>
               <b-field label="Nombre">
-                <b-input placeholder="Nombre"></b-input>
+                <b-input v-model="form.name" placeholder="Nombre"></b-input>
               </b-field>
               <b-field label="Apellido">
-                <b-input placeholder="Apellido"></b-input>
+                <b-input v-model="form.last_name"  placeholder="Apellido"></b-input>
               </b-field>
               <b-field label="Email">
-                <b-input placeholder="Email" type="email"></b-input>
+                <b-input placeholder="Email" v-model="form.correo"  type="email"></b-input>
               </b-field>
               <b-field label="Contraseña">
-                <b-input type="password" password-reveal placeholder="Contraseña"></b-input>
+                <b-input type="password" v-model="form.password"  password-reveal placeholder="Contraseña"></b-input>
               </b-field>
-              <a class="button is-info">Guardar</a>
+              <a class="button is-info" @click="save">Guardar</a>
             </form> 
           </div> 
           
@@ -38,6 +38,37 @@
     </div>
   </section>
 </template>
+
+<script>
+import Api from '../../API/api.js'
+export default {
+  name: 'register',
+  data(){
+    return {
+      form: {
+        last_name: '',
+        name: '',
+        nombre: '',
+        correo: '',
+        password: ''
+      }
+    }
+  },
+  methods: {
+    save () {
+      this.form.nombre = this.form.name + ' ' + this.form.last_name
+      Api.createAccount(this.form)
+        .then(resp => {
+          console.log(resp)
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    }
+  },
+
+}
+</script>
 
 <style scoped>
   .header {

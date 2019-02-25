@@ -36,7 +36,15 @@ const API = {
   },
 
   createAccount: (data) => {
-
+    return new Promise((resolve, reject) => {
+      connect.post('users', data)
+        .then(resp => {
+          resolve(resp.data) 
+        })
+        .catch(err => {
+          reject(err)
+        })
+    })
   }
 }
 
