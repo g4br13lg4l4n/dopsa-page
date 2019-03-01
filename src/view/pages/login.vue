@@ -1,6 +1,5 @@
 <template>
   <section>
-
     <header class="header">
       <div class="container">
         <div class="columns is-gapless is-multiline is-mobile margin">
@@ -11,7 +10,6 @@
       </div>  
     </header>
 
-
     <div class="container">
       <div class="columns is-mobile is-centered">
         <div class="column is-half">
@@ -20,12 +18,12 @@
             <h2 class="title is-4">Ingresar</h2>
             <form>
               <b-field label="Email">
-                <b-input placeholder="Email" type="email"></b-input>
+                <b-input placeholder="Email" v-model="form.usermame" type="email"></b-input>
               </b-field>
               <b-field label="Contraseña">
-                <b-input  type="password" placeholder="Contraseña" password-reveal></b-input>
+                <b-input  type="password" v-model="form.password" placeholder="Contraseña" password-reveal></b-input>
               </b-field>
-               <router-link :to="{ name: 'Checkout' }"><p class="button is-info">Ingresar</p></router-link>
+               <a class="button is-info" @click="login">Ingresar</a>
             </form> 
           </div> 
           
@@ -34,6 +32,35 @@
     </div>
   </section>
 </template>
+
+<script>
+/* eslint-disable */ 
+import Api from '../../API/api.js'
+export default {
+  name: 'login',
+  data(){
+    return {
+      form: {
+        usermame: '',
+        password: '',
+      }
+    }
+  },
+  methods: {
+    login() {
+      Api.login(this.form)
+      .then(resp => {
+        console.log(resp)
+      })
+      .catch(err => {
+        console.log(err)
+      })
+    }
+  }
+
+}
+</script>
+
 <style scoped>
   .header {
     background-color: #fff159; 

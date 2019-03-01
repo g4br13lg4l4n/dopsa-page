@@ -45,7 +45,11 @@ const API = {
           reject(err)
         })
     })
-  }
+  },
+
+  login: (data) => {
+    console.log(data)
+  } 
 }
 
 export default API

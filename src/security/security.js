@@ -18,8 +18,6 @@ const security = {
         .then(resp => {
           localStorage.header = JSON.stringify(resp.data)
         })
-        .catch(err => {
-        })
   },
 
   getStorageToken: ()=> {

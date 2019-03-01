@@ -10,6 +10,9 @@
       </div>  
     </header>
 
+    <div>
+      <h2 v-if="registed" class="has-text-centered is-size-4 hero is-info is-medium confirm_email"> Favor de revisar su correo para confirmar su cuenta </h2>
+    </div>  
     <div class="container">
       <div class="columns is-mobile is-centered">
         <div class="column is-half">
@@ -40,6 +43,7 @@
 </template>
 
 <script>
+/* eslint-disable */ 
 import Api from '../../API/api.js'
 export default {
   name: 'register',
@@ -51,7 +55,8 @@ export default {
         nombre: '',
         correo: '',
         password: ''
-      }
+      },
+      registed: false
     }
   },
   methods: {
@@ -59,7 +64,7 @@ export default {
       this.form.nombre = this.form.name + ' ' + this.form.last_name
       Api.createAccount(this.form)
         .then(resp => {
-          console.log(resp)
+          this.registed = true
         })
         .catch(err => {
           console.log(err)
@@ -71,6 +76,10 @@ export default {
 </script>
 
 <style scoped>
+  .confirm_email {
+    margin-top: -40px;
+    margin-bottom: 20px;
+  }
   .header {
     background-color: #fff159; 
     height: 56px;
