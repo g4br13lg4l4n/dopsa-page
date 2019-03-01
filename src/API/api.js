@@ -5,6 +5,10 @@ import security from '../security/security'
 /* eslint-disable */
 security.getToken()
 
+const connectLogin = axios.create({
+  baseURL: configService.apiUrl,
+})
+
 const connect = axios.create({
   baseURL: configService.apiUrl,
   headers: security.getStorageToken()
@@ -47,8 +51,24 @@ const API = {
     })
   },
 
-  login: (data) => {
-    console.log(data)
+  login: (_data) => {
+    return new Promise((resolve, reject) => {
+      const data = {
+        grant_type: 'password',
+        client_id: 2,
+        client_secret: 'mgjpUHN0y31U3ONlvuAYKZzZhIJkum5cYWEnNbLk',
+        username: _data['username'],
+        password: _data['password'],
+        provider: 'users'
+      }
+      connectLogin.post('oauth/token', data)
+        .then(resp => {
+          resolve(resp.data)
+        })
+        .catch(err => {
+          reject(err)
+        })
+    })
   } 
 }
 

@@ -18,7 +18,7 @@
             <h2 class="title is-4">Ingresar</h2>
             <form>
               <b-field label="Email">
-                <b-input placeholder="Email" v-model="form.usermame" type="email"></b-input>
+                <b-input placeholder="Email" v-model="form.username" type="email"></b-input>
               </b-field>
               <b-field label="Contraseña">
                 <b-input  type="password" v-model="form.password" placeholder="Contraseña" password-reveal></b-input>
@@ -41,7 +41,7 @@ export default {
   data(){
     return {
       form: {
-        usermame: '',
+        username: '',
         password: '',
       }
     }
