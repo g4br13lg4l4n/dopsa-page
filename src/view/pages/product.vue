@@ -30,10 +30,11 @@
             
             <div class="columns mt-1">
               <div class="column is-6">
-                <router-link :to="{ name: 'CheckLogin' }"><p class="button is-info">Comprar</p></router-link>
+                <button @click="toBuy(article.identificador)" class="button is-info">Comprar</button>
               </div>
               <div class="column is-6">
-                <router-link :to="{ name: 'Home' }"><p class="button is-info is-outlined">Agregar al carrito</p></router-link>
+
+                <button @click="addToCart(article.identificador)" class="button is-info is-outlined">Agregar al carrito</button>
               </div>
             </div>  
 
@@ -50,9 +51,9 @@
 
 <script>
 import Api from '../../API/api.js'
-
 import Head from '../components/head/head'
 import Foot from '../components/foot/foot'
+import Security from '../../security/security'
 export default {
   name: 'Home',
   components: {
@@ -68,8 +69,25 @@ export default {
       })  
     }
   },
+  methods: {
+    addToCart(id){
+      if(id){
+        this.cart.push(id)
+        localStorage.cart = this.cart
+      }
+    },
+    toBuy(id){
+      console.log(Security.getStorageToken())
+
+      this.cart.push(id)
+      localStorage.cart = this.cart
+
+
+    }
+  },
   data () {
     return {
+      cart: [],
       disponible: 0,
       article: '',
       'images': {
