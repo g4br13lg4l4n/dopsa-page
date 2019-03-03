@@ -8,6 +8,13 @@ const access = {
   'client_secret': 'D226qJbWZYrzAXxVZVQEzhqVttrXBTbCXVtb3FMg'
 }
 
+const accessBuyer = {
+  grant_type: 'password',
+  client_id: 2,
+  client_secret: 'mgjpUHN0y31U3ONlvuAYKZzZhIJkum5cYWEnNbLk',
+
+}
+
 const connect = axios.create({
   baseURL: configService.apiUrl
 })
@@ -18,6 +25,37 @@ const security = {
         .then(resp => {
           localStorage.header = JSON.stringify(resp.data)
         })
+  },
+
+  getTokenBuyer: (_data) => {
+    accessBuyer.username = _data['username']
+    accessBuyer.password = _data['password']
+    return new Promise((resolve, reject) => {
+      connect.post('oauth/token', accessBuyer)
+          .then(resp => {
+            resolve(resp.data)
+            localStorage.headerBuyer = JSON.stringify(resp.data)
+          }).catch(err => {
+            reject(err)
+          })
+    })
+  },
+
+  getStorageBuyerToken: () => {
+    if (localStorage.headerBuyer) {
+      const token = JSON.parse(localStorage.header)
+      return {Authorization: token.token_type+' '+token.access_token};
+    }else {
+      return ''
+    }
+  },
+
+  deleteStorageBuyerToken: () => {
+    if (localStorage.headerBuyer) {
+      localStorage.headerBuyer = ''
+    }else {
+      return ''
+    }
   },
 
   getStorageToken: ()=> {

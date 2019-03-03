@@ -24,9 +24,12 @@
       </div>
       <div class="column is-one-quarter">
         <nav class="breadcrumb is-centered" aria-label="breadcrumbs">
-          <ul>
+          <ul v-if="!login">
             <li><router-link :to="{ name: 'Register' }">Crear cuenta</router-link></li>
             <li><router-link :to="{ name: 'Login' }">Ingresar</router-link></li>
+          </ul>
+          <ul v-else>
+            <li> <a @click="exit">Salir</a></li>
           </ul>
         </nav>
       </div> 
@@ -37,7 +40,7 @@
 
 <script>
 import Menu from '../menu/menu'
-
+import security from '../../../security/security'
 import 'buefy/dist/buefy.css'
 export default {
   name: 'Head',
@@ -56,7 +59,15 @@ export default {
         'Kiwi'
       ],
       name: '',
-      selected: null
+      selected: null,
+      login: false
+    }
+  },
+  beforeMount(){
+    if(security.getStorageBuyerToken()){
+      this.login = true 
+    }else {
+      this.login = false
     }
   },
   computed: {
@@ -70,6 +81,10 @@ export default {
     }
   },
   methods: {
+    exit() {
+      security.deleteStorageBuyerToken()
+       this.$router.push({name:'Home'})
+    },
     showAddFruit() {
       this.$dialog.prompt({
         message: `Fruit`,

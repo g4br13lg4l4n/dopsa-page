@@ -35,7 +35,9 @@
 
 <script>
 /* eslint-disable */ 
+import Security from '../../security/security'
 import Api from '../../API/api.js'
+import CheckCart from '../../checkCart/checkCart'
 export default {
   name: 'login',
   data(){
@@ -50,7 +52,11 @@ export default {
     login() {
       Api.login(this.form)
       .then(resp => {
-        console.log(resp)
+        if(CheckCart.getProductsCart()){
+          this.$router.push({name:'Checkout'})
+        }else {
+          this.$router.back()
+        }
       })
       .catch(err => {
         console.log(err)

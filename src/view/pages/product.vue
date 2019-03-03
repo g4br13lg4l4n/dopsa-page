@@ -77,12 +77,14 @@ export default {
       }
     },
     toBuy(id){
-      console.log(Security.getStorageToken())
-
       this.cart.push(id)
       localStorage.cart = this.cart
-
-
+      if(Security.getStorageBuyerToken()){
+        this.$router.push({name:'Checkout'})
+      }
+      else{
+        this.$router.push({name:'CheckLogin'})
+      }
     }
   },
   data () {
