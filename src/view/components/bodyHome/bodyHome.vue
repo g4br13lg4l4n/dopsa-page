@@ -3,7 +3,7 @@
     <h3 class="subtitle is-3">Ofertas</h3>
     <div class="columns is-variable is-3 is-multiline">
 
-      <div v-for="product in products" :key="product.identificador" class="column is-3"> 
+      <div v-for="product in paginatedItems" :key="product.identificador" class="column is-3"> 
         <div class="card" >
           <router-link :to="{ name: 'Product', params: { id: product.identificador }}">
             <div class="card-image">
@@ -29,6 +29,15 @@
           </router-link>  
         </div>
       </div>
+      <b-pagination
+        :total="total"
+        :current.sync="current"
+        :order="order"
+        :size="size"
+        :simple="isSimple"
+        :rounded="isRounded"
+        :per-page="perPage">
+      </b-pagination>
     </div>
   </div>
   
@@ -43,13 +52,32 @@ export default {
   name: 'bodyHome',
   data () {
     return {
-      products: ''
+      items: [],
+      total: 0,
+      current: 1,
+      perPage: 20,
+      order: '',
+      size: '',
+      isSimple: false,
+      isRounded: true
+    }
+  },
+  created() {
+    for(var i = 1; i <= 100; i++){
+      this.items.push(i)
+    }
+  },
+  computed: {
+    paginatedItems() {
+      let page_number = this.current-1
+      return this.items.slice(page_number * this.perPage, (page_number + 1) * this.perPage);
     }
   },
   mounted() {
     Api.getProducts()
     .then(resp => {
-      this.products = resp.data
+      this.items = resp.data
+      this.total = resp.data.length
     })
   }
 }
@@ -58,6 +86,9 @@ export default {
 <style scoped>
   .line-text {
     text-decoration: line-through;
+  }
+  .pagination {
+    margin-top: 10px;
   }
 </style>
 
