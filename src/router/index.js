@@ -29,12 +29,12 @@ export default new Router({
       component: Category
     },
     {
-      path: '/product/:id',
+      path: '/product/:slug',
       name: 'Product',
       component: Product
     },
     {
-      path: '/seacrh',
+      path: '/search',
       name: 'Search',
       component: Search
     },

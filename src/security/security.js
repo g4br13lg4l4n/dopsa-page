@@ -4,14 +4,14 @@ import configService from '../API/config'
 const access = {
   'Content-Type':'multipart/form-data',
   'grant_type': 'client_credentials',
-  'client_id': '4',
-  'client_secret': 'D226qJbWZYrzAXxVZVQEzhqVttrXBTbCXVtb3FMg'
+  'client_id': 2,
+  'client_secret': 'Q4zdaVygJAHDKjP3GSvBdVxQXEVirKvhA4vfFovj'
 }
 
 const accessBuyer = {
   grant_type: 'password',
-  client_id: 2,
-  client_secret: 'mgjpUHN0y31U3ONlvuAYKZzZhIJkum5cYWEnNbLk',
+  client_id: 1,
+  client_secret: 'cinIC4gzXQRmqm2TMf9l75awtjL75TlhDj2Sy4xE',
 
 }
 
@@ -52,7 +52,7 @@ const security = {
 
   deleteStorageBuyerToken: () => {
     if (localStorage.headerBuyer) {
-      localStorage.headerBuyer = ''
+        localStorage.removeItem('headerBuyer')
     }else {
       return ''
     }

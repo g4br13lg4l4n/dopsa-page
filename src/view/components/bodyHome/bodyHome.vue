@@ -5,10 +5,11 @@
 
       <div v-for="product in paginatedItems" :key="product.identificador" class="column is-3"> 
         <div class="card" >
-          <router-link :to="{ name: 'Product', params: { id: product.identificador }}">
+          <router-link :to="{ name: 'Product', params: { slug: product.slug }}">
             <div class="card-image">
               <figure class="image is-4by3">
-                <img src="https://bulma.io/images/placeholders/1280x960.png" alt="Placeholder image">
+                <img v-if="product.imagen" :src="product.imagen"  alt="Placeholder image">
+                <img v-else src="https://bulma.io/images/placeholders/1280x960.png" alt="Placeholder image">
               </figure>
             </div>
             <div class="card-content">

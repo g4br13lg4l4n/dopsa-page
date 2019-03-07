@@ -27,9 +27,9 @@ const API = {
     })
   },
 
-  getProduct: (id) => {
+  getProduct: (url) => {
     return new Promise((resolve, reject) => {
-      connect.get(`products/${id}`)
+      connect.get(url)
         .then(resp => {
           resolve(resp.data) 
         })

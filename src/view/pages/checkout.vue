@@ -91,17 +91,16 @@
         </div>
         <div class="column is-4">
           <article class="tile is-child box">
-            <p class="title is-size-5">Producto</p>
-            <p class="subtitle is-size-5">{{product.nombre}}</p>
+            <p class="subtitle is-size-5">{{ product.nombre }}</p>
 
-            <p class="has-text-weight-ligth">cantidad: 2</p>
+            <p class="has-text-weight-ligth">cantidad: </p>
             <br>
             <div class="columns">
               <div class="column is-6">
                 <p class="has-text-weight-normal">Subtotal:</p>
               </div> 
               <div class="column is-6">
-                <p class="has-text-weight-normal"> $ {{product.precio_oferta}}</p>
+                <p class="has-text-weight-normal"> $ {{ product.precio_oferta }}</p>
               </div>
             </div>
             <div class="columns">
@@ -109,7 +108,7 @@
                 <p class="has-text-weight-normal">Envío:</p>
               </div> 
               <div class="column is-6">
-                <p class="has-text-weight-normal">$ {{priceSend}}</p>
+                <p class="has-text-weight-normal">$ {{ priceSend }}</p>
               </div>
             </div>
             <div class="columns">
@@ -117,16 +116,16 @@
                 <p class="has-text-weight-normal">Total:</p>
               </div> 
               <div class="column is-6">
-                <p class="has-text-weight-normal">$ {{total}}</p>
+                <p class="has-text-weight-normal">$ {{ total }}</p>
               </div>
             </div>            
             <br>
             <div class="columns">
               <div class="column is-6">
-                <p class="button is-info is-fullwidth">Pagar</p>
+                <p class="button is-info is-fullwidth" @click="pay(product.id)">Pagar</p>
               </div>
               <div class="column is-6">
-                <p class="button is-danger is-fullwidth">Cancelar</p>
+                <p class="button is-danger is-fullwidth" @click="cancel()">Cancelar</p>
               </div>
             </div> 
           </article> 
@@ -178,6 +177,15 @@ export default {
         this.product = resp.data
       })
     }
+  },
+  methods: {
+     pay(){
+      
+    },
+    cancel() {
+      CheckCart.deleteCart()
+      this.$router.push({name:'Home'})
+    },
   },
   computed: {
     total: function () {

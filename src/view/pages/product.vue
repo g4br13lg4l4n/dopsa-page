@@ -12,6 +12,7 @@
           <ProductZoomer
             :base-images="images"
             :base-zoomer-options="zoomerOptions"
+            v-if="load"
           />
         </div>
         <div class="column">
@@ -60,12 +61,17 @@ export default {
     Head,
     Foot
   },
-  mounted(){
+  beforeCreate() {
     if(this.$route.params){
-      Api.getProduct(this.$route.params.id)
+      Api.getProduct(`products/slug?slug=${this.$route.params.slug}`)
       .then(resp => {
         this.article = resp.data
         this.disponible = parseInt(resp.data.disponible) 
+        resp.data.imagenes.map( (imagen, key) => {
+          this.images.normal_size.push({ id: key, url: 'http://'+imagen.url })
+          this.images.large_size.push({ id: key, url: 'http://'+imagen.url })
+        })
+        this.load = true
       })  
     }
   },
@@ -89,64 +95,13 @@ export default {
   },
   data () {
     return {
+      load: false,
       cart: [],
       disponible: 0,
       article: '',
-      'images': {
-        'thumbs': [
-          {
-            'id': 1,
-            'url': 'https://bulma.io/images/placeholders/128x128.png'
-          },
-          {
-            'id': 2,
-            'url': 'https://bulma.io/images/placeholders/128x128.png'
-          },
-          {
-            'id': 3,
-            'url': 'https://bulma.io/images/placeholders/128x128.png'
-          },
-          {
-            'id': 4,
-            'url': 'https://bulma.io/images/placeholders/128x128.png'
-          }
-        ],
-        'normal_size': [
-          {
-            'id': 1,
-            'url': 'https://bulma.io/images/placeholders/256x256.png'
-          },
-          {
-            'id': 2,
-            'url': 'https://bulma.io/images/placeholders/256x256.png'
-          },
-          {
-            'id': 3,
-            'url': 'https://bulma.io/images/placeholders/256x256.png'
-          },
-          {
-            'id': 4,
-            'url': 'https://bulma.io/images/placeholders/256x256.png'
-          }
-        ],
-        'large_size': [
-          {
-            'id': 1,
-            'url': 'https://bulma.io/images/placeholders/480x480.png'
-          },
-          {
-            'id': 2,
-            'url': 'https://bulma.io/images/placeholders/480x480.png'
-          },
-          {
-            'id': 3,
-            'url': 'https://bulma.io/images/placeholders/480x480.png'
-          },
-          {
-            'id': 4,
-            'url': 'https://bulma.io/images/placeholders/480x480.png'
-          }
-        ]
+      images: {
+        normal_size: [],
+        large_size: []
       },
       'zoomerOptions': {
         'zoomFactor': 3, // numero del zoom

@@ -2,7 +2,7 @@
   <div>
     <section class="section head">
       <div class="container">
-        <Head/>
+        <Head :data="items"/>
       </div>
     </section>
 
@@ -32,6 +32,11 @@ export default {
     Carousel,
     BodyHome,
     Foot
+  },
+  data () {
+    return {
+      items: [{hola: 'mundo'}]
+    }
   }
 }
 </script>

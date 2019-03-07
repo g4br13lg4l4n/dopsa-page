@@ -42,6 +42,7 @@
 import Menu from '../menu/menu'
 import security from '../../../security/security'
 import 'buefy/dist/buefy.css'
+
 export default {
   name: 'Head',
   components: {
@@ -83,7 +84,7 @@ export default {
   methods: {
     exit() {
       security.deleteStorageBuyerToken()
-       this.$router.push({name:'Home'})
+      this.$router.push({name:'Home'})
     },
     showAddFruit() {
       this.$dialog.prompt({
