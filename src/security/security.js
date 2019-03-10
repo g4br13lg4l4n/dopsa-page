@@ -4,15 +4,18 @@ import configService from '../API/config'
 const access = {
   'Content-Type':'multipart/form-data',
   'grant_type': 'client_credentials',
-  'client_id': 2,
-  'client_secret': 'y2yugmPvKdfvuxF5aS4YFyXO4e9xkMb9HdptlMjw'
+  //'client_id': 2,
+  //'client_secret': 'y2yugmPvKdfvuxF5aS4YFyXO4e9xkMb9HdptlMjw'
+  'client_id': 1,
+  'client_secret': 'jA3OkVMkmsWgrXkErotoYzK29obKcofkRqK4jDkL'
 }
 
 const accessBuyer = {
   grant_type: 'password',
-  client_id: 1,
-  client_secret: 'Ei5oPk1ytGFhbcSVbl5bpZahVMFexajdvbbh4ypM',
-
+  //client_id: 1,
+  //client_secret: 'Ei5oPk1ytGFhbcSVbl5bpZahVMFexajdvbbh4ypM',
+  client_id: 2,
+  client_secret: 'T8flFMaJPs42IMmNdX3HarHkjFpZAj6ASGbXuuWH',
 }
 
 const connect = axios.create({
