@@ -2,7 +2,7 @@
   <section>
     <div class="columns is-gapless is-multiline is-mobile is-centered is-vcentered">
       <div class="column">
-       <h1 class="title is-4">DOPSA</h1> 
+        <router-link :to="{ name: 'Home' }"><h1 class="title is-4">DOPSA</h1></router-link>
       </div>  
       <div class="column is-two-thirds is-centered">
         <b-field>
@@ -15,7 +15,7 @@
               <template slot="header">
                   <a @click="showAddFruit"> </a> 
               </template>
-              <template slot="empty">No results for {{name}}</template>
+              <template slot="empty">No results for {{ name }}</template>
           </b-autocomplete>
           <p class="control">
             <button class="button is-info">Search</button>
@@ -24,9 +24,13 @@
       </div>
       <div class="column is-one-quarter">
         <nav class="breadcrumb is-centered" aria-label="breadcrumbs">
-          <ul>
-            <li><a href="#">Bulma</a></li>
-            <li><a href="#">Documentation</a></li>
+          <ul v-if="!login">
+            <li><router-link :to="{ name: 'Register' }">Crear cuenta</router-link></li>
+            <li><router-link :to="{ name: 'Login' }">Ingresar</router-link></li>
+          </ul>
+          <ul v-else>
+            <li> <a>{{ username }} </a></li>
+            <li> <a @click="exit">Salir</a></li>
           </ul>
         </nav>
       </div> 
@@ -37,8 +41,9 @@
 
 <script>
 import Menu from '../menu/menu'
-
+import security from '../../../security/security'
 import 'buefy/dist/buefy.css'
+
 export default {
   name: 'Head',
   components: {
@@ -56,7 +61,18 @@ export default {
         'Kiwi'
       ],
       name: '',
-      selected: null
+      username: '',
+      selected: null,
+      login: false
+    }
+  },
+  beforeMount(){
+    if(this.$session.exists()){
+      const session = this.$session.getAll()
+      this.username = session.user.nombre
+      this.login = true 
+    }else {
+      this.login = false
     }
   },
   computed: {
@@ -70,6 +86,12 @@ export default {
     }
   },
   methods: {
+    exit() {
+      security.deleteSession(this)
+      this.$router.push({name:'Home'})
+      this.login = false
+      this.username = ''
+    },
     showAddFruit() {
       this.$dialog.prompt({
         message: `Fruit`,
