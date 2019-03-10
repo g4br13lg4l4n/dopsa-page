@@ -5,10 +5,6 @@ import security from '../security/security'
 /* eslint-disable */
 security.getToken()
 
-const connectLogin = axios.create({
-  baseURL: configService.apiUrl,
-})
-
 const connect = axios.create({
   baseURL: configService.apiUrl,
   headers: security.getStorageToken()
@@ -39,6 +35,18 @@ const API = {
     })
   },
 
+  postTransaction: (url, data) =>{
+    return new Promise((resolve, reject) => {
+      connect.post(url, data)
+        .then(resp => {
+          resolve(resp.data)
+        })
+        .catch(err => {
+          reject(err)
+        })
+    })
+  },
+
   createAccount: (data) => {
     return new Promise((resolve, reject) => {
       connect.post('users', data)
@@ -61,7 +69,26 @@ const API = {
         reject(err) 
       })
     })  
-  } 
+  },
+  
+  me: (url, data) => {
+
+    const connect_me = axios.create({
+      baseURL: configService.apiUrl,
+      headers: {'Authorization': data.token_type +' '+data.access_token}
+    })
+
+    return new Promise((resolve, reject) => {
+      connect_me.get(url, data)
+        .then(resp => {
+          resolve(resp.data) 
+        })
+        .catch(err => {
+          reject(err)
+        })
+
+    })
+  }
 }
 
 export default API

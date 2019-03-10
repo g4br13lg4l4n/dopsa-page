@@ -15,7 +15,7 @@
               <template slot="header">
                   <a @click="showAddFruit"> </a> 
               </template>
-              <template slot="empty">No results for {{name}}</template>
+              <template slot="empty">No results for {{ name }}</template>
           </b-autocomplete>
           <p class="control">
             <button class="button is-info">Search</button>
@@ -29,6 +29,7 @@
             <li><router-link :to="{ name: 'Login' }">Ingresar</router-link></li>
           </ul>
           <ul v-else>
+            <li> <a>{{ username }} </a></li>
             <li> <a @click="exit">Salir</a></li>
           </ul>
         </nav>
@@ -60,12 +61,15 @@ export default {
         'Kiwi'
       ],
       name: '',
+      username: '',
       selected: null,
       login: false
     }
   },
   beforeMount(){
-    if(security.getStorageBuyerToken()){
+    if(this.$session.exists()){
+      const session = this.$session.getAll()
+      this.username = session.user.nombre
       this.login = true 
     }else {
       this.login = false
@@ -83,8 +87,10 @@ export default {
   },
   methods: {
     exit() {
-      security.deleteStorageBuyerToken()
+      security.deleteSession(this)
       this.$router.push({name:'Home'})
+      this.login = false
+      this.username = ''
     },
     showAddFruit() {
       this.$dialog.prompt({

@@ -23,8 +23,8 @@
             <p class="has-text-weight-semibold">$ {{article.precio_oferta}}</p>
             <div class="columns mt-1 cont-select">
               <b-field label="Cantidad">
-                <b-select placeholder="Cantidad 1" >
-                  <option v-for="n in article.disponibles" :key="n" >Cantidad {{ n }}</option>
+                <b-select placeholder="Cantidad 1" v-model="quantity">
+                  <option  v-for="n in disponible" :key="n">Cantidad {{ n }}</option>
                 </b-select>
               </b-field>  
             </div>
@@ -35,7 +35,7 @@
               </div>
               <div class="column is-6">
 
-                <button @click="addToCart(article.identificador)" class="button is-info is-outlined">Agregar al carrito</button>
+                <button @click="addToCart(article.identificador )" class="button is-info is-outlined">Agregar al carrito</button>
               </div>
             </div>  
 
@@ -54,7 +54,6 @@
 import Api from '../../API/api.js'
 import Head from '../components/head/head'
 import Foot from '../components/foot/foot'
-import Security from '../../security/security'
 export default {
   name: 'Home',
   components: {
@@ -66,7 +65,7 @@ export default {
       Api.getProduct(`products/slug?slug=${this.$route.params.slug}`)
       .then(resp => {
         this.article = resp.data
-        this.disponible = parseInt(resp.data.disponible) 
+        this.disponible = parseInt(resp.data.disponibles)
         resp.data.imagenes.map( (imagen, key) => {
           this.images.normal_size.push({ id: key, url: 'http://'+imagen.url })
           this.images.large_size.push({ id: key, url: 'http://'+imagen.url })
@@ -77,18 +76,20 @@ export default {
   },
   methods: {
     addToCart(id){
-      if(id){
+      if(id) {
         this.cart.push(id)
-        localStorage.cart = this.cart
+        localStorage.shopping_cart = this.cart
       }
     },
     toBuy(id){
-      this.cart.push(id)
-      localStorage.cart = this.cart
-      if(Security.getStorageBuyerToken()){
+      if(this.$session.exists()){
+        const session = this.$session.getAll()
+        localStorage.cart =  JSON.stringify({ poduct: id, user: session.user.id, quantity: this.quantity})
+        
         this.$router.push({name:'Checkout'})
       }
       else{
+         localStorage.cart = JSON.stringify({ poduct: id, quantity: this.quantity})
         this.$router.push({name:'CheckLogin'})
       }
     }
@@ -96,9 +97,10 @@ export default {
   data () {
     return {
       load: false,
-      cart: [],
-      disponible: 0,
+      disponible: 1,
+      quantity: 1,
       article: '',
+      buyerId: null,
       images: {
         normal_size: [],
         large_size: []

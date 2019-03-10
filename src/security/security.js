@@ -5,13 +5,13 @@ const access = {
   'Content-Type':'multipart/form-data',
   'grant_type': 'client_credentials',
   'client_id': 2,
-  'client_secret': 'Q4zdaVygJAHDKjP3GSvBdVxQXEVirKvhA4vfFovj'
+  'client_secret': 'y2yugmPvKdfvuxF5aS4YFyXO4e9xkMb9HdptlMjw'
 }
 
 const accessBuyer = {
   grant_type: 'password',
   client_id: 1,
-  client_secret: 'cinIC4gzXQRmqm2TMf9l75awtjL75TlhDj2Sy4xE',
+  client_secret: 'Ei5oPk1ytGFhbcSVbl5bpZahVMFexajdvbbh4ypM',
 
 }
 
@@ -50,12 +50,9 @@ const security = {
     }
   },
 
-  deleteStorageBuyerToken: () => {
-    if (localStorage.headerBuyer) {
-        localStorage.removeItem('headerBuyer')
-    }else {
-      return ''
-    }
+  deleteSession: (_this) => {
+    _this.$session.clear()
+    _this.$session.destroy()
   },
 
   getStorageToken: ()=> {

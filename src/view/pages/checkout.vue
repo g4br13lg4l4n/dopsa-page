@@ -23,47 +23,47 @@
                 <form action="">
 
                   <b-field label="Nombre y Apellido">
-                    <b-input v-model="buy.name"></b-input>
+                    <b-input v-model="transaction.buyer_address.name"></b-input>
                   </b-field>
 
                   <b-field label="Código postal">
-                    <b-input v-model="buy.zip_code"></b-input>
+                    <b-input v-model="transaction.buyer_address.zip_code"></b-input>
                   </b-field>
 
                   <b-field label="Estado">
-                    <b-input v-model="buy.state"></b-input>
+                    <b-input v-model="transaction.buyer_address.state"></b-input>
                   </b-field>
 
                   <b-field label="Ciudad">
-                    <b-input v-model="buy.city"></b-input>
+                    <b-input v-model="transaction.buyer_address.city"></b-input>
                   </b-field>
 
                   <b-field label="Colonia">
-                    <b-input v-model="buy.colony"></b-input>
+                    <b-input v-model="transaction.buyer_address.colony"></b-input>
                   </b-field>
 
                   <b-field label="Calle">
-                    <b-input v-model="buy.street"></b-input>
+                    <b-input v-model="transaction.buyer_address.street"></b-input>
                   </b-field>
 
                   <b-field label="Núm. externo">
-                    <b-input v-model="buy.number_external"></b-input>
+                    <b-input v-model="transaction.buyer_address.number_external"></b-input>
                   </b-field>
 
                   <b-field label="Núm. interno (opcional)">
-                    <b-input v-model="buy.number_internal"></b-input>
+                    <b-input v-model="transaction.buyer_address.number_internal"></b-input>
                   </b-field>
 
                   <b-field label="Entre calle (opcional)">
-                    <b-input v-model="buy.between_street"></b-input>
+                    <b-input v-model="transaction.buyer_address.between_street"></b-input>
                   </b-field>
 
                   <b-field label="Referencias">
-                      <b-input maxlength="200"  v-model="buy.reference" type="textarea"></b-input>
+                      <b-input maxlength="200"  v-model="transaction.buyer_address.reference" type="textarea"></b-input>
                   </b-field>
 
                   <b-field label="Teléfono de contacto">
-                    <b-input v-model="buy.phone"></b-input>
+                    <b-input v-model="transaction.buyer_address.phone"></b-input>
                   </b-field>
                 </form>
               </div>
@@ -93,7 +93,7 @@
           <article class="tile is-child box">
             <p class="subtitle is-size-5">{{ product.nombre }}</p>
 
-            <p class="has-text-weight-ligth">cantidad: </p>
+            <p class="has-text-weight-ligth">cantidad: {{ transaction.quantity }}</p>
             <br>
             <div class="columns">
               <div class="column is-6">
@@ -153,34 +153,60 @@ export default {
   },
   data () {
     return {
+      transaction: {
+        quantity: null,
+        buyer_id: null,
+        product_id: null,
+        buyer_address: {
+          buyer_id: null,
+          name: '',
+          zip_code: '',
+          state: '',
+          city: '',
+          colony: '',
+          street: '',
+          number_external: '',
+          number_internal:'',
+          between_street:'',
+          reference:'',
+          phone:''
+        },
+      },
       product: [],
       priceSend: 20,
-      buy: {
-        name: '',
-        zip_code: '',
-        state: '',
-        city: '',
-        colony: '',
-        street: '',
-        number_external: '',
-        number_internal:'',
-        between_street:'',
-        reference:'',
-        phone:''
-      }
     }
   },
   beforeMount() {
-    if(CheckCart.getProductsCart()){
-      Api.getProduct(CheckCart.getProductsCart())
+    if(!this.$session.exists()){
+       this.$router.push({name:'Home'})
+    }
+    const session = this.$session.getAll()
+    const cart = JSON.parse(CheckCart.getProductsCart())
+    const quantity = cart.quantity.split('Cantidad ')
+    this.transaction.product_id = cart.poduct
+    this.transaction.buyer_id = session.user.id
+    this.transaction.buyer_address.buyer_id = session.user.id
+    this.transaction.quantity = quantity[1]
+
+    if(cart){
+      Api.getProduct('products/'+cart.poduct)
       .then(resp => {
         this.product = resp.data
+      }).catch(err => {
+        console.log(err)
       })
     }
   },
   methods: {
      pay(){
-      
+       console.log(this.transaction)
+      Api.postTransaction('transactions', this.transaction)
+        .then(resp => {
+          console.log(resp)
+        })
+        .catch(err => {
+          console.log(err)
+        })
     },
     cancel() {
       CheckCart.deleteCart()

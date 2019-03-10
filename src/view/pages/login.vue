@@ -52,11 +52,28 @@ export default {
     login() {
       Api.login(this.form)
       .then(resp => {
-        if(CheckCart.getProductsCart()){
-          this.$router.push({name:'Checkout'})
-        }else {
-          this.$router.back()
-        }
+        if (resp.access_token && resp.token_type && resp.expires_in) {
+            Api.me('users/me', resp)
+            .then(response => {
+              this.$session.start()
+              this.$session.set('user',
+                {
+                  'access_token': resp.access_token,
+                  'token_type': resp.token_type,
+                  'id': response.data.identificador,
+                  'nombre': response.data.nombre
+                }
+              )
+
+              console.log(localStorage.cart)
+
+              if(CheckCart.getProductsCart()){
+                this.$router.push({name:'Checkout'})
+              }else {
+                this.$router.back()
+              }
+            })
+          }
       })
       .catch(err => {
         console.log(err)
